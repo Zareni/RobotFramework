@@ -104,7 +104,7 @@ Register - Pasword Confirmation - fail
     Element Text Should Be    xpath://span[contains(text(),'The password and confirmation password do not matc')]    The password and confirmation password do not match.
     Log To Console    The password and confirmation password do not match.
 
-register user - success
+Register User - success
     Go To    ${TESTURL}/register
     Register page
     Click Button    id:register-button
