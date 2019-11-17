@@ -103,6 +103,7 @@ Register - Pasword Confirmation - fail
     Log To Console    The password and confirmation password do not match.
 
 Register User - success
+    [Documentation]    Test registering user witn ${random_email} and logout
     Go To    ${TESTURL}/register
     Register page
     Click Button    id:register-button
