@@ -60,6 +60,7 @@ Register page
     Element Should Be Visible    id:register-button
 
 Register required fields
+    Capture Page Screenshot    register-required fields-{index}.png
     Element Should Be Visible    xpath://span[contains(text(),'First name is required.')]
     Element Text Should Be    xpath://span[contains(text(),'First name is required.')]    First name is required.
     Element Should Be Visible    xpath://span[contains(text(),'Last name is required.')]

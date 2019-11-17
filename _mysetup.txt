@@ -3,3 +3,5 @@
 ${TESTURL}        http://demowebshop.tricentis.com/
 ${useremail}      zare_ns@yahoo.com
 ${password}       tester
+${username}       User
+${lastname}       Tester

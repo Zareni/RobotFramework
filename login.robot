@@ -53,5 +53,21 @@ Login pasword - fail
     Log To Console    user is fail to log
 
 Login email - fail
+    Go To    ${TESTURL}/login
+    Login form page
+    ${random_email} =    Generate Random String    5    [NUMBERS]
+    ${random_email} =    Set Variable    user-${random_email}-test@mailinator.com
+    Set Suite Variable    ${random_email}
+    Input Text    id:Email    ${random_email}
+    Capture Page Screenshot    random-email-{index}.png
+    Input Password    id:Password    ${password}
+    Capture Page Screenshot    password-{index}.png
+    Click Element    id:RememberMe
+    Capture Page Screenshot    remeberMe-checkbox-{index}.png
+    Click Element    xpath://input[@class='button-1 login-button']
+    Sleep    1
+    Capture Page Screenshot    after-submit-{index}.png
+    Alert message text dialog
+    Log To Console    user is fail to log
 
 *** Keywords ***
