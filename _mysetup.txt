@@ -1,0 +1,5 @@
+*** Variables ***
+# env:test
+${TESTURL}        http://demowebshop.tricentis.com/
+${useremail}      zare_ns@yahoo.com
+${password}       tester

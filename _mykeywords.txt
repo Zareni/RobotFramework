@@ -1,0 +1,29 @@
+*** Keywords ***
+Alert message text dialog
+    [Documentation]    Alert message text dialog
+    Wait Until Element Is Visible    xpath://div[@class='validation-summary-errors']
+    Wait Until Element Is Visible    xpath://span[contains(text(),'Login was unsuccessful. Please correct the errors')]
+    Wait Until Element Is Visible    xpath://li[contains(text(),'The credentials provided are incorrect')]
+    Element Text Should Be    xpath://span[contains(text(),'Login was unsuccessful. Please correct the errors')]    Login was unsuccessful. Please correct the errors and try again.
+    Element Text Should Be    xpath://li[contains(text(),'The credentials provided are incorrect')]    The credentials provided are incorrect
+
+Login form page
+    [Documentation]    Login form page
+    Element Text Should Be    xpath://strong[contains(text(),'Returning Customer')]    Returning Customer
+    Element Should Be Visible    xpath://strong[contains(text(),'Returning Customer')]
+    Element Text Should Be    xpath://label[contains(text(),'Email:')]    Email:
+    Element Should Be Visible    xpath://label[contains(text(),'Email:')]
+    Element Text Should Be    xpath://label[contains(text(),'Password:')]    Password:
+    Element Should Be Visible    xpath://label[contains(text(),'Password:')]
+
+Open Chrome Browser
+    ${options}    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    Call Method    ${options}    add_argument    --no-sandbox
+    ${prefs}    Create Dictionary    download.default_directory=${TMP_PATH}
+    Call Method    ${options}    add_experimental_option    prefs    ${prefs}
+    Create Webdriver    Chrome    chrome_options=${options}
+    Maximize Browser Window
+
+Register page
+    [Documentation]    Register page
+    ...    Werify and assert register modal dialog
