@@ -17,6 +17,8 @@ Login form page
     Element Should Be Visible    xpath://label[contains(text(),'Password:')]
 
 Open Chrome Browser
+    [Documentation]    Create webdriver
+    ...    Open Chrome Browser \ and maximise frame
     ${options}    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
     Call Method    ${options}    add_argument    --no-sandbox
     ${prefs}    Create Dictionary    download.default_directory=${TMP_PATH}
@@ -27,3 +29,54 @@ Open Chrome Browser
 Register page
     [Documentation]    Register page
     ...    Werify and assert register modal dialog
+    Element Should Be Visible    xpath://div[@class='page registration-page']
+    Element Should Be Visible    xpath://h1[contains(text(),'Register')]
+    Element Text Should Be    xpath://h1[contains(text(),'Register')]    Register
+    Element Should Be Visible    xpath://div[@class='page-body']
+    Element Should Be Visible    xpath://div[@class='page-body']/div[2]
+    #Your Personal Details dialog
+    Element Should Be Visible    xpath://strong[contains(text(),'Your Personal Details')]
+    Element Text Should Be    xpath://strong[contains(text(),'Your Personal Details')]    Your Personal Details
+    Element Should Be Visible    xpath://label[contains(text(),'Gender:')]
+    Element Text Should Be    xpath://label[contains(text(),'Gender:')]    Gender:
+    Radio Button Should Not Be Selected    group_name=Gender
+    Element Text Should Be    xpath=//label[contains(text(),'First name:')]    First name:
+    Element Should Be Enabled    id:FirstName
+    Element Should Be Visible    xpath://label[contains(text(),'Last name:')]
+    Element Text Should Be    xpath://label[contains(text(),'Last name:')]    Last name:
+    Element Should Be Enabled    id:LastName
+    Element Should Be Visible    xpath://label[contains(text(),'Email:')]
+    Element Text Should Be    xpath://label[contains(text(),'Email:')]    Email:
+    Element Should Be Enabled    id:Email
+    #Your Password dialog
+    Element Should Be Visible    xpath=//strong[contains(text(),'Your Password')]
+    Element Text Should Be    xpath=//strong[contains(text(),'Your Password')]    Your Password
+    Element Should Be Visible    xpath://label[contains(text(),'Password:')]
+    Element Text Should Be    xpath://label[contains(text(),'Password:')]    Password:
+    Element Should Be Visible    xpath://label[contains(text(),'Confirm password:')]
+    Element Text Should Be    xpath://label[contains(text(),'Confirm password:')]    Confirm password:
+    Element Should Be Visible    id:register-button
+    Element Should Be Enabled    id:register-button
+    Element Should Be Visible    id:register-button
+
+Register required fields
+    Element Should Be Visible    xpath://span[contains(text(),'First name is required.')]
+    Element Text Should Be    xpath://span[contains(text(),'First name is required.')]    First name is required.
+    Element Should Be Visible    xpath://span[contains(text(),'Last name is required.')]
+    Element Text Should Be    xpath://span[contains(text(),'Last name is required.')]    Last name is required.
+    Element Should Be Visible    xpath://span[contains(text(),'Email is required.')]
+    Element Text Should Be    xpath://span[contains(text(),'Email is required.')]    Email is required.
+    Element Should Be Visible    xpath://div[@class='page registration-page']//div[1]//span[2]//span[1]
+    Element Text Should Be    xpath://div[@class='page registration-page']//div[1]//span[2]//span[1]    Password is required.
+    Element Should Be Visible    xpath://div[3]//div[2]//div[2]//span[2]//span[1]
+    Element Text Should Be    xpath://div[3]//div[2]//div[2]//span[2]//span[1]    Password is required.
+
+Register sucess
+    Element Should Be Visible    xpath://h1[contains(text(),'Register')]
+    Element Text Should Be    xpath://h1[contains(text(),'Register')]    Register
+    Element Should Be Visible    xpath://div[@class='result']
+    Element Text Should Be    xpath://div[@class='result']    Your registration completed
+    Element Should Be Visible    xpath://input[@class='button-1 register-continue-button']
+    Element Should Be Enabled    xpath://input[@class='button-1 register-continue-button']
+    Element Text Should Be    xpath://a[contains(text(),'${random_email}')]    ${random_email}
+    Element Should Be Visible    xpath://a[contains(text(),'${random_email}')]

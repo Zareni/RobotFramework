@@ -10,38 +10,61 @@ Resource          _mysetup.txt
 ${TMP_PATH}       /tmp
 
 *** Test Cases ***
-register - success
+register user - success
     Go To    ${TESTURL}
     Click Link    /register
-    #register page
-    Element Should Be Visible    xpath://div[@class='page registration-page']
-    Element Should Be Visible    xpath://h1[contains(text(),'Register')]
-    Element Text Should Be    xpath://h1[contains(text(),'Register')]    Register
-    Element Should Be Visible    xpath://div[@class='page-body']
-    Element Should Be Visible    xpath://div[@class='page-body']/div[2]
-    #Your Personal Details dialog
-    Element Should Be Visible    xpath://strong[contains(text(),'Your Personal Details')]
-    Element Text Should Be    xpath://strong[contains(text(),'Your Personal Details')]    Your Personal Details
-    Element Should Be Visible    xpath://label[contains(text(),'Gender:')]
-    Element Text Should Be    xpath://label[contains(text(),'Gender:')]    Gender:
-    Radio Button Should Not Be Selected    group_name=Gender
-    Element Text Should Be    xpath=//label[contains(text(),'First name:')]    First name:
-    Element Should Be Enabled    id:FirstName
-    Element Should Be Visible    xpath://label[contains(text(),'Last name:')]
-    Element Text Should Be    xpath://label[contains(text(),'Last name:')]    Last name:
-    Element Should Be Enabled    id:LastName
-    Element Should Be Visible    xpath://label[contains(text(),'Email:')]
-    Element Text Should Be    xpath://label[contains(text(),'Email:')]    Email:
-    Element Should Be Enabled    id:Email
-    #Your Password dialog
-    Element Should Be Visible    xpath=//strong[contains(text(),'Your Password')]
-    Element Text Should Be    xpath=//strong[contains(text(),'Your Password')]    Your Password
-    Element Should Be Visible    xpath://label[contains(text(),'Password:')]
-    Element Text Should Be    xpath://label[contains(text(),'Password:')]    Password:
-    Element Should Be Visible    xpath://label[contains(text(),'Confirm password:')]
-    Element Text Should Be    xpath://label[contains(text(),'Confirm password:')]    Confirm password:
-    Element Should Be Visible    id:register-button
-    Element Should Be Enabled    id:register-button
-    Element Should Be Visible    id:register-button
+    Register page
+    Click Button    id:register-button
+    Register required fields
+    #Select Radio Button    name:Gender    M
+    Click Element    id:gender-male
+    Clear Element Text    id:FirstName
+    Input Text    id:FirstName    Test
+    Clear Element Text    id:LastName
+    Input Text    id:LastName    User
+    Clear Element Text    id:Email
+    ${random_email} =    Generate Random String    5    [NUMBERS]
+    ${random_email} =    Set Variable    user-${random_email}-test@mailinator.com
+    Set Suite Variable    ${random_email}
+    Input Text    id:Email    ${random_email}
+    Capture Page Screenshot    register-random-doctor-email-{index}.png
+    Clear Element Text    id:Password
+    Input Text    id:Password    ${password}
+    Clear Element Text    id:ConfirmPassword
+    Input Text    id:ConfirmPassword    ${password}
+    Click Button    id:register-button
+    Sleep    5
+    Log To Console    user register - success
+    Capture Page Screenshot    register-sucess-{index}.png
+    Register sucess
+    Click Link    /logout
 
-register - fail
+register user- fail
+    Go To    ${TESTURL}
+    Click Link    /register
+    Register page
+    Click Button    id:register-button
+    Register required fields
+    #Select Radio Button    name:Gender    M
+    Click Element    id:gender-male
+    Clear Element Text    id:FirstName
+    Input Text    id:FirstName    Test
+    Clear Element Text    id:LastName
+    Input Text    id:LastName    User
+    Clear Element Text    id:Email
+    ${random_email} =    Generate Random String    5    [NUMBERS]
+    ${random_email} =    Set Variable    user-${random_email}-test@mailinator.com
+    Set Suite Variable    ${random_email}
+    Input Text    id:Email    ${random_email}
+    Capture Page Screenshot    register-random-doctor-email-{index}.png
+    Clear Element Text    id:Password
+    Input Text    id:Password    ${password}
+    Clear Element Text    id:ConfirmPassword
+    Input Text    id:ConfirmPassword    wrongpassword
+    Click Button    id:register-button
+    Sleep    5
+    Log To Console    user register - fail
+    Capture Page Screenshot    register-fail-{index}.png
+    Wait Until Element Is Visible    xpath://span[contains(text(),'The password and confirmation password do not matc')]
+    Element Should Be Visible    xpath://span[contains(text(),'The password and confirmation password do not matc')]
+    Element Text Should Be    xpath://span[contains(text(),'The password and confirmation password do not matc')]    The password and confirmation password do not match.
