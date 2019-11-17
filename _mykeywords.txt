@@ -1,12 +1,4 @@
 *** Keywords ***
-Alert message text dialog
-    [Documentation]    Alert message text dialog
-    Wait Until Element Is Visible    xpath://div[@class='validation-summary-errors']
-    Wait Until Element Is Visible    xpath://span[contains(text(),'Login was unsuccessful. Please correct the errors')]
-    Wait Until Element Is Visible    xpath://li[contains(text(),'The credentials provided are incorrect')]
-    Element Text Should Be    xpath://span[contains(text(),'Login was unsuccessful. Please correct the errors')]    Login was unsuccessful. Please correct the errors and try again.
-    Element Text Should Be    xpath://li[contains(text(),'The credentials provided are incorrect')]    The credentials provided are incorrect
-
 Login form page
     [Documentation]    Login form page
     Element Text Should Be    xpath://strong[contains(text(),'Returning Customer')]    Returning Customer
@@ -15,6 +7,16 @@ Login form page
     Element Should Be Visible    xpath://label[contains(text(),'Email:')]
     Element Text Should Be    xpath://label[contains(text(),'Password:')]    Password:
     Element Should Be Visible    xpath://label[contains(text(),'Password:')]
+
+No customer account found text
+    [Documentation]    No customer account found error message text
+    Capture Page Screenshot    no-customer-account-found-{index}.png
+    Element Should Be Visible    xpath://div[@class='returning-wrapper']
+    Element Should Be Visible    xpath://div[@class='form-fields']
+    Element Should Be Visible    xpath://span[contains(text(),'Login was unsuccessful. Please correct the errors')]
+    Element Text Should Be    xpath://span[contains(text(),'Login was unsuccessful. Please correct the errors')]    Login was unsuccessful. Please correct the errors and try again.
+    Element Should Be Visible    xpath://li[contains(text(),'No customer account found')]
+    Element Text Should Be    xpath://li[contains(text(),'No customer account found')]    No customer account found
 
 Open Chrome Browser
     [Documentation]    Create webdriver
@@ -81,3 +83,12 @@ Register sucess
     Element Should Be Enabled    xpath://input[@class='button-1 register-continue-button']
     Element Text Should Be    xpath://a[contains(text(),'${random_email}')]    ${random_email}
     Element Should Be Visible    xpath://a[contains(text(),'${random_email}')]
+
+The credentials provided are incorrect text
+    [Documentation]    \
+    ...    The credentials provided are incorrect
+    Wait Until Element Is Visible    xpath://div[@class='validation-summary-errors']
+    Wait Until Element Is Visible    xpath://span[contains(text(),'Login was unsuccessful. Please correct the errors')]
+    Wait Until Element Is Visible    xpath://li[contains(text(),'The credentials provided are incorrect')]
+    Element Text Should Be    xpath://span[contains(text(),'Login was unsuccessful. Please correct the errors')]    Login was unsuccessful. Please correct the errors and try again.
+    Element Text Should Be    xpath://li[contains(text(),'The credentials provided are incorrect')]    The credentials provided are incorrect

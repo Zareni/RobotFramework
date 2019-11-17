@@ -11,9 +11,7 @@ ${TMP_PATH}       /tmp
 
 *** Test Cases ***
 Login - success
-    Go To    http://demowebshop.tricentis.com/
-    Maximize Browser Window
-    Click Element    xpath://a[@class='ico-login']
+    Go To    ${TESTURL}/login
     Login form page
     Sleep    1
     Input Text    id:Email    ${useremail}
@@ -24,20 +22,20 @@ Login - success
     Element Text Should Be    xpath://a[contains(text(),'${useremail}')]    ${useremail}
     Click Link    /logout
 
-Login page
-    Go To    http://demowebshop.tricentis.com/
-    Maximize Browser Window
-    Click Element    xpath://a[@class='ico-login']
+Login page -Handle alert
+    Go To    ${TESTURL}/login
     Login form page
-    Sleep    1
     Input Text    id:Email    ${useremail}
     Input Text    id:Password    ${password}
     Submit Form
     Handle Alert
-    Sleep    3
+    Close Browser
 
 Login pasword - fail
-    [Documentation]    Test user fail to login with ${useremail}
+    [Documentation]    The credentials provided are incorrect
+    ...
+    ...    Test user fail to login with ${useremail}
+    Open Chrome Browser
     Go To    ${TESTURL}/login
     Login form page
     Input Text    id:Email    ${useremail}
@@ -49,10 +47,11 @@ Login pasword - fail
     Click Element    xpath://input[@class='button-1 login-button']
     Sleep    5
     Capture Page Screenshot    after-submit-{index}.png
-    Alert message text dialog
+    The credentials provided are incorrect text
     Log To Console    user is fail to log
 
-Login email - fail
+Login to fail- No customer account found
+    [Documentation]    No customer account found
     Go To    ${TESTURL}/login
     Login form page
     ${random_email} =    Generate Random String    5    [NUMBERS]
@@ -67,7 +66,7 @@ Login email - fail
     Click Element    xpath://input[@class='button-1 login-button']
     Sleep    1
     Capture Page Screenshot    after-submit-{index}.png
-    Alert message text dialog
-    Log To Console    user is fail to log
+    No customer account found text
+    Log To Console    User is fail to log - \ Login was unsuccessful. Please correct the errors and try again. No customer account found
 
 *** Keywords ***

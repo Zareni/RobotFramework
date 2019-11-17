@@ -75,10 +75,8 @@ Register Short Pasword - fail
     Log To Console    The password and confirmation password do not match.
 
 Register - Pasword Confirmation - fail
-    [Documentation]    Register user fail confirmation
-    Go To    ${TESTURL}
-    Login form page
-    Click Link    /register
+    [Documentation]    The password and confirmation password do not match.
+    Go To    ${TESTURL}/register
     Register page
     Click Button    id:register-button
     Register required fields
@@ -126,7 +124,6 @@ Register User - success
     Clear Element Text    id:ConfirmPassword
     Input Text    id:ConfirmPassword    ${password}
     Click Button    id:register-button
-    Sleep    5
     Log To Console    user register - success
     Capture Page Screenshot    register-sucess-{index}.png
     Register sucess
