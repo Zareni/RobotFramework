@@ -1,6 +1,7 @@
 *** Keywords ***
 Login form page
     [Documentation]    Login form page
+    Capture Page Screenshot    login-form-{index}.png
     Element Text Should Be    xpath://strong[contains(text(),'Returning Customer')]    Returning Customer
     Element Should Be Visible    xpath://strong[contains(text(),'Returning Customer')]
     Element Text Should Be    xpath://label[contains(text(),'Email:')]    Email:
@@ -85,8 +86,7 @@ Register sucess
     Element Should Be Visible    xpath://a[contains(text(),'${random_email}')]
 
 The credentials provided are incorrect text
-    [Documentation]    \
-    ...    The credentials provided are incorrect
+    [Documentation]    The credentials provided are incorrect
     Wait Until Element Is Visible    xpath://div[@class='validation-summary-errors']
     Wait Until Element Is Visible    xpath://span[contains(text(),'Login was unsuccessful. Please correct the errors')]
     Wait Until Element Is Visible    xpath://li[contains(text(),'The credentials provided are incorrect')]

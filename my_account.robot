@@ -17,3 +17,9 @@ Addresses
 Orders
 
 Downloadable products
+
+Back in stock subscriptions
+
+Reward points
+
+Change password
